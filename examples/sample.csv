@@ -1,0 +1,13 @@
+name,sector,type,website,x,github,location,description
+Ethereum,Layer1,Infrastructure,https://ethereum.org,https://x.com/ethereum,https://github.com/ethereum,Global,
+Solana,Layer1,Infrastructure,https://solana.com,https://x.com/solana,https://github.com/solana-labs,Global,
+Uniswap,DeFi,DEX,https://uniswap.org,https://x.com/Uniswap,https://github.com/Uniswap,Global,
+Aave,DeFi,Lending,https://aave.com,https://x.com/AaveAave,https://github.com/aave,Global,
+OpenSea,NFT,Marketplace,https://opensea.io,https://x.com/opensea,https://github.com/ProjectOpenSea,Global,
+Blur,NFT,Marketplace,https://blur.io,https://x.com/blur_io,,Global,
+Arbitrum,Layer2,Rollup,https://arbitrum.io,https://x.com/arbitrum,https://github.com/OffchainLabs,Global,
+Optimism,Layer2,Rollup,https://optimism.io,https://x.com/Optimism,https://github.com/ethereum-optimism,Global,
+MetaMask,Wallet,EOA,https://metamask.io,https://x.com/MetaMask,https://github.com/MetaMask,Global,
+Rainbow,Wallet,EOA,https://rainbow.me,https://x.com/rainbowdotme,https://github.com/rainbow-me,Global,
+Chainlink,Infrastructure,Oracle,https://chain.link,https://x.com/chainlink,https://github.com/smartcontractkit,Global,
+The Graph,Infrastructure,Indexing,https://thegraph.com,https://x.com/graphprotocol,https://github.com/graphprotocol,Global,
