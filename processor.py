@@ -19,7 +19,6 @@ import requests
 import sys
 import time
 from pathlib import Path
-from typing import Dict, List, Optional
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -49,7 +48,9 @@ def extract_twitter_handle(twitter_url: str) -> str:
     return ""
 
 
-def download_logo(twitter_url: str, save_path: str, verbose: bool = False) -> bool:
+def download_logo(
+    twitter_url: str, save_path: str, verbose: bool = False
+) -> bool:
     """Download Twitter/X avatar using unavatar API."""
     try:
         twitter_handle = extract_twitter_handle(twitter_url)
@@ -75,7 +76,10 @@ def fetch_website_description(url: str, verbose: bool = False) -> str:
     """Fetch description from website meta tags."""
     try:
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+            'User-Agent': (
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'
+                ' AppleWebKit/537.36'
+            )
         }
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
@@ -212,14 +216,18 @@ def process_csv(
     sector_data = {}
 
     # Setup progress bar
-    iterator = rows if quiet else tqdm(rows, desc="Processing projects", unit="proj")
+    iterator = rows if quiet else tqdm(
+        rows, desc="Processing projects", unit="proj"
+    )
 
     for idx, row in enumerate(iterator, 1):
         name = get_field(row, 'name').strip()
         sector = get_field(row, 'sector').strip()
         project_type = get_field(row, 'type').strip()
         website = get_field(row, 'website').strip()
-        twitter = get_field(row, 'x').strip() or get_field(row, 'twitter').strip()
+        twitter = get_field(row, 'x').strip() or get_field(
+            row, 'twitter'
+        ).strip()
 
         if not quiet and verbose:
             print(f"\n[{idx}/{len(rows)}] {name}")
@@ -245,25 +253,25 @@ def process_csv(
         if not skip_logos and twitter:
             if download_logo(twitter, str(logo_abs_path), verbose):
                 if not quiet and verbose:
-                    print(f"  Logo downloaded")
+                    print("  Logo downloaded")
             else:
                 if not quiet and verbose:
-                    print(f"  Logo download failed")
+                    print("  Logo download failed")
             time.sleep(rate_limit)
         elif not skip_logos:
             if not quiet and verbose:
-                print(f"  No Twitter link, skipping logo")
+                print("  No Twitter link, skipping logo")
 
         # Get description
         description = get_field(row, 'description').strip()
         if not description and website:
             description = fetch_website_description(website, verbose)
             if description and not quiet and verbose:
-                print(f"  Description fetched from website")
+                print("  Description fetched from website")
             elif not description:
                 description = f"{name} - crypto project"
                 if not quiet and verbose:
-                    print(f"  Using placeholder description")
+                    print("  Using placeholder description")
             time.sleep(rate_limit)
 
         # Build project JSON
@@ -338,7 +346,10 @@ def process_csv(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Process Builder Data - Transform CSV project data into structured JSON files",
+        description=(
+                "Process Builder Data - Transform CSV"
+                " into structured JSON"
+            ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -360,8 +371,10 @@ CSV Format:
                         help="Suppress output except errors")
     parser.add_argument("--skip-logos", action="store_true",
                         help="Skip logo downloading")
-    parser.add_argument("--rate-limit", type=float, default=0.5,
-                        help="Delay between requests in seconds (default: 0.5)")
+    parser.add_argument(
+        "--rate-limit", type=float, default=0.5,
+        help="Delay between requests in seconds (default: 0.5)"
+    )
     parser.add_argument("--version", action="version",
                         version=f"%(prog)s {__version__}")
 
